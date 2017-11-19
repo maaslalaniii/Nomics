@@ -2,6 +2,7 @@ global.User = {
   age: '',
   balance: 0.0,
   education: "Elementary",
+  videosWatched: 0,
   date: new Date(2017, 1, 1),
   expenses: {
     food: 0,
