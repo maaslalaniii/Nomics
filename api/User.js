@@ -12,8 +12,8 @@ global.User = {
   health: 100,
   job: {
     hasJob: false,
-    salary: 0,
-    title: '',
+    salary: 1,
+    title: 'Allowance',
   },
   name: '',
 }

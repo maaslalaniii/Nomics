@@ -17,31 +17,33 @@ export default class HomeScreen extends React.Component {
   constructor() {
     super()
     this.state = {
+      balance: User.balance,
       health: User.health,
       education: User.education,
       income: User.job.salary,
       expenses: User.expenses.rent + User.expenses.food + User.expenses.medical,
-      date: User.date.getDate()+'/'+ User.date.getMonth() + '/' + User.date.getFullYear()
+      date: User.date
     }
-  }
-
-  update() {
-    console.log(user)
-    this.setState({
-      health: User.health,
-      education: User.education,
-      income: User.job.salary,
-      expenses: User.expenses.rent + User.expenses.food + User.expenses.medical,
-      date: User.date.getDate()+'/'+ User.date.getMonth() + '/' + User.date.getFullYear()
-    })
+    setInterval(() => {
+      console.log(User)
+      User.balance = User.balance + User.job.salary - (User.expenses.rent + User.expenses.food + User.expenses.medical)
+      User.date.setDate(this.state.date.getDate() + 1)
+      this.setState({
+        balance: User.balance,
+        health: User.health,
+        education: User.education,
+        income: User.job.salary,
+        expenses: User.expenses.rent + User.expenses.food + User.expenses.medical,
+        date: User.date
+      })
+    }, 1000)
   }
 
   render() {
     return (
         <View style={styles.container}>
-          <TouchableWithoutFeedback onPress={console.log(User)} style={styles.balance}>
-            <Text style={styles.balanceLabel}>Balance </Text><Text style={styles.balanceAmount}>${User.balance}</Text>
-          </TouchableWithoutFeedback>
+
+          <Text style={styles.balanceLabel}>Balance </Text><Text style={styles.balanceAmount}>${User.balance}</Text>
 
           <View style={styles.item}>
             <Text>Health</Text>
@@ -67,7 +69,7 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.item}>
             <Text>Today's Date</Text>
-            <Text style={styles.largeText}>{this.state.date}</Text>
+            <Text style={styles.largeText}>{`${this.state.date.getDate()}/${this.state.date.getMonth()}/${this.state.date.getFullYear()}`}</Text>
           </View>
           
         </View>
